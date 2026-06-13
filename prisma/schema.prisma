@@ -11,3 +11,26 @@ generator client {
 datasource db {
   provider = "mysql"
 }
+
+enum roleType {
+  user
+  admin
+  moderator
+}
+model users {
+
+  id Int @id @default(autoincrement())
+  mobile String @unique
+  display_name String
+  password String
+  role roleType @default(user)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  // address addresses[]
+  // ticket tickets[]
+  // order orders[]
+  // book_prod bookmark_product[]
+  // bask_itm basket_item[]
+  // user_roles user_role[]
+  // user_permissions user_permission[]
+}
