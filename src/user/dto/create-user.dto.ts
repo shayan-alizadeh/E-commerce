@@ -9,7 +9,7 @@ import {
   Matches,
   MinLength,
 } from 'class-validator';
-import { roleType } from 'generated/prisma/enums.js';
+import { roleType } from '../../../generated/prisma/enums.js';
 
 export class CreateUserDto {
 //   @ApiProperty({ example: '09125806033' })
@@ -17,21 +17,21 @@ export class CreateUserDto {
   @IsNotEmpty()
   @Matches(/^.{11}$/)
   @Transform(({ value }) => value.trim())
-  mobile: string;
+  mobile!: string;
 
 //   @ApiProperty({ example: 'Ali' })
   @IsString()
   @IsNotEmpty()
-  display_name: string;
+  display_name!: string;
 
 //   @ApiPropertyOptional({ example: '123456' })
   @IsString()
   @IsOptional()
   @Length(8, 16)
-  password: string;
+  password?: string;
 
 //   @ApiPropertyOptional({ enum: roleType, example: roleType.user })
   @IsOptional()
   @IsEnum(roleType)
-  role: roleType;
+  role?: roleType;
 }

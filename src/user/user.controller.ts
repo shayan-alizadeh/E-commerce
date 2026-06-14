@@ -15,9 +15,9 @@ import { UserService } from './user.service.js';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import type { Response } from 'express';
-import { roleType } from 'generated/prisma/enums.js';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
-import { Roles } from 'src/auth/Decorator/role.decorator';
+import { roleType } from '../../generated/prisma/enums.js';
+// import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
+// import { Roles } from 'src/auth/Decorator/role.decorator';
 
 // import { ApiBearerAuth } from '@nestjs/swagger';
 
@@ -80,7 +80,7 @@ export class UserController {
     });
   }
 
-  @Roles(roleType.admin, roleType.moderator)
+  // @Roles(roleType.admin, roleType.moderator)
   @Delete(':id')
   async remove(@Param('id') id: string, @Res() res: Response) {
     const result = await this.userService.remove(+id);
