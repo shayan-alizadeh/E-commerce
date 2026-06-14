@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+// import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import {
   IsEnum,
@@ -12,25 +12,25 @@ import {
 import { roleType } from 'generated/prisma/enums.js';
 
 export class CreateUserDto {
-  @ApiProperty({ example: '09125806033' })
+//   @ApiProperty({ example: '09125806033' })
   @IsString()
   @IsNotEmpty()
   @Matches(/^.{11}$/)
   @Transform(({ value }) => value.trim())
   mobile: string;
 
-  @ApiProperty({ example: 'Ali' })
+//   @ApiProperty({ example: 'Ali' })
   @IsString()
   @IsNotEmpty()
   display_name: string;
 
-  @ApiPropertyOptional({ example: '123456' })
+//   @ApiPropertyOptional({ example: '123456' })
   @IsString()
   @IsOptional()
   @Length(8, 16)
   password: string;
 
-  @ApiPropertyOptional({ enum: roleType, example: roleType.user })
+//   @ApiPropertyOptional({ enum: roleType, example: roleType.user })
   @IsOptional()
   @IsEnum(roleType)
   role: roleType;
