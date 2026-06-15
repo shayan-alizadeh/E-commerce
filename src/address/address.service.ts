@@ -1,26 +1,70 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAddressDto } from './dto/create-address.dto.js';
 import { UpdateAddressDto } from './dto/update-address.dto.js';
+import { PrismaService } from 'src/prisma/prisma.service.js';
+import { Prisma } from 'generated/prisma/client.js';
 
 @Injectable()
 export class AddressService {
-  create(createAddressDto: CreateAddressDto) {
-    return 'This action adds a new address';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createAddressDto: CreateAddressDto) {
+    try {
+      const { userId, ...addressDto } = createAddressDto;
+      return await this.prisma.addresses.create({
+        data: {
+          ...addressDto,
+          user: {
+            connect: { id: userId },
+          },
+        },
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2025' || error.code === 'P2003') {
+          throw new NotFoundException('User not found');
+        }
+        throw error;
+      }
+    }
   }
 
-  findAll() {
-    return `This action returns all address`;
+  async findAll() {
+    return await this.prisma.addresses.findMany({
+      include: {
+        user: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} address`;
+  async findOne(id: number) {
+    const address = await this.prisma.addresses.findUnique({
+      where: { id },
+      include: {
+        user: true,
+      },
+    });
+    if (address) {
+      return address;
+    } else {
+      throw new NotFoundException('Address not Found .');
+    }
   }
 
-  update(id: number, updateAddressDto: UpdateAddressDto) {
-    return `This action updates a #${id} address`;
+  async update(id: number, updateAddressDto: UpdateAddressDto) {
+    try {
+      return await this.prisma.addresses.update({
+        where: { id },
+        data: updateAddressDto,
+      });
+    } catch (error) {
+      throw new NotFoundException('Address not found');
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} address`;
+  async remove(id: number) {
+    return await this.prisma.addresses.delete({
+      where: { id },
+    });
   }
 }

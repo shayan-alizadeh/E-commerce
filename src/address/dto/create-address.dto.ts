@@ -1,6 +1,9 @@
 import { IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
 
 export class CreateAddressDto {
+  @IsNotEmpty({ message: 'id کاربر باید وارد شود .' })
+  userId!: number;
+
   @IsString({ message: 'استان باید یک رشته باشد .' })
   @IsNotEmpty({ message: 'بخش استان نمی تواند خالی باشد .' })
   province!: string;
