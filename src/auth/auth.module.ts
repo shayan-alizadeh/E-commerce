@@ -6,9 +6,9 @@ import { JwtStrategy } from './strategies/jwt.strategy.js';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AuthController } from './auth.controller.js';
+import { AuthController } from './auth.controller.js'
 import { APP_GUARD } from '@nestjs/core';
-import { PermissionGuard } from './guard/permission.guard.js';
+// import { PermissionGuard } from './guard/permission.guard.js';
 
 @Module({
   imports: [
