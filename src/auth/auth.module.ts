@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from 'src/user/user.module.js';
-import { UserService } from 'src/user/user.service.js';
+import { UserModule } from '../user/user.module.js';
 import { AuthService } from './auth.service.js';
 import { JwtStrategy } from './strategies/jwt.strategy.js';
 import { JwtModule } from '@nestjs/jwt';
@@ -26,7 +25,7 @@ import { APP_GUARD } from '@nestjs/core';
   providers: [
     AuthService,
     JwtStrategy,
-    { provide: APP_GUARD, useClass: PermissionGuard },
+    // { provide: APP_GUARD, useClass: PermissionGuard },
   ],
   controllers: [AuthController],
 })

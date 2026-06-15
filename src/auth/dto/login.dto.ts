@@ -20,7 +20,7 @@ export class LoginDto {
 //   @ApiProperty({ example: '123456' })
   @IsString()
   @IsNotEmpty()
-  @Length(6, 16)
+//   @Length(6, 16)
   @MaxLength(16, { message: 'رمز عبور باید حاکثر 16 کاراکتر باشد .' })
   password!: string;
 }

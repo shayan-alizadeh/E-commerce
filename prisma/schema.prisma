@@ -26,11 +26,28 @@ model users {
   role roleType @default(user)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  // address addresses[]
+  address addresses[]
   // ticket tickets[]
   // order orders[]
   // book_prod bookmark_product[]
   // bask_itm basket_item[]
   // user_roles user_role[]
   // user_permissions user_permission[]
+}
+
+model addresses {
+
+  id Int @id @default(autoincrement())
+  user_id Int
+  province String
+  city String
+  address String
+  postal_code String @db.Char(10)
+  reciver_mobile String @db.Char(11)
+  description String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user users @relation(fields: [user_id] , references: [id])
+  // order orders[]
+
 }

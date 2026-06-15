@@ -5,11 +5,11 @@ import {
   ConflictException,
   ForbiddenException,
 } from '@nestjs/common';
-import { UserService } from 'src/user/user.service.js';
+import { UserService } from '../user/user.service.js';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { roleType } from '../../generated/prisma/enums.js';
-import { PrismaService } from 'src/prisma/prisma.service.js';
+import { PrismaService } from '../prisma/prisma.service.js';
 
 @Injectable()
 export class AuthService {
