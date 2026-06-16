@@ -53,11 +53,11 @@ export class TicketService {
     });
   }
 
-  update(id: number, updateTicketDto: UpdateTicketDto) {
-    return `This action updates a #${id} ticket`;
-  }
+  // update(id: number, updateTicketDto: UpdateTicketDto) {
+  //   return `This action updates a #${id} ticket`;
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} ticket`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} ticket`;
+  // }
 }
