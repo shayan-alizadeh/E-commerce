@@ -28,6 +28,7 @@ model users {
   updated_at DateTime @updatedAt
   address addresses[]
   ticket tickets[]
+  comment comments[]
   // order orders[]
   // book_prod bookmark_product[]
   // bask_itm basket_item[]
@@ -64,4 +65,15 @@ model tickets {
   parent tickets? @relation("TicketsReply",fields: [reply_id],references: [id])
   replies tickets[] @relation("TicketsReply")
 
+}
+
+model comments {
+  id Int @id @default(autoincrement())
+  user_id Int
+  product_id Int
+  text String
+  score Int
+  created_at DateTime @default(now())
+  user users @relation(fields: [user_id],references: [id])
+  // product products @relation(fields: [product_id],references: [id])
 }

@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAddressDto } from './dto/create-address.dto.js';
 import { UpdateAddressDto } from './dto/update-address.dto.js';
-import { PrismaService } from 'src/prisma/prisma.service.js';
-import { Prisma } from 'generated/prisma/client.js';
+import { PrismaService } from '../prisma/prisma.service.js';
+import { Prisma } from '../../generated/prisma/client.js';
 
 @Injectable()
 export class AddressService {
