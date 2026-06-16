@@ -6,9 +6,10 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { UserModule } from './user/user.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { AddressModule } from './address/address.module';
+import { TicketModule } from './ticket/ticket.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, UserModule, AuthModule, AddressModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, UserModule, AuthModule, AddressModule, TicketModule],
   controllers: [AppController],
   providers: [AppService],
 })

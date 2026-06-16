@@ -27,7 +27,7 @@ model users {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   address addresses[]
-  // ticket tickets[]
+  ticket tickets[]
   // order orders[]
   // book_prod bookmark_product[]
   // bask_itm basket_item[]
@@ -49,5 +49,19 @@ model addresses {
   updated_at DateTime @updatedAt
   user users @relation(fields: [user_id] , references: [id])
   // order orders[]
+
+}
+
+model tickets {
+
+  id Int @id @default(autoincrement())
+  user_id Int
+  title String
+  subject String
+  description String
+  reply_id Int?
+  user users @relation(fields: [user_id],references: [id])
+  parent tickets? @relation("TicketsReply",fields: [reply_id],references: [id])
+  replies tickets[] @relation("TicketsReply")
 
 }
