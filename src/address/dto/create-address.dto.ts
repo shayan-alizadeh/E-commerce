@@ -22,7 +22,7 @@ export class CreateAddressDto {
 
   @IsString({ message: 'استان باید یک رشته باشد .' })
   @IsNotEmpty({ message: 'بخش شماره موبایل گیرنده نمی تواند خالی باشد' })
-  @Length(10, 10, { message: 'شماره موبایل باید 11 رقم باشد .' })
+  @Length(11, 11, { message: 'شماره موبایل باید 11 رقم باشد .' })
   reciver_mobile!: string;
 
   @IsOptional()
