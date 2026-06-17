@@ -75,5 +75,42 @@ model comments {
   score Int
   created_at DateTime @default(now())
   user users @relation(fields: [user_id],references: [id])
-  // product products @relation(fields: [product_id],references: [id])
+  product products @relation(fields: [product_id],references: [id])
+}
+
+model products {
+
+  id Int @id @default(autoincrement())
+  title String
+  description String
+  price Int
+  stock Int
+  create_at DateTime @default(now())
+  update_at DateTime @updatedAt
+  comment comments[]
+  prod_cat product_category[]
+  // book_prod bookmark_product[]
+  // bask_itm basket_item[]
+  // item order_item[]
+
+}
+
+model product_category {
+
+  product_id Int
+  category_id Int
+  @@unique([product_id,category_id])
+  product products @relation(fields: [product_id],references: [id],onDelete: Cascade)
+  category categories @relation(fields: [category_id],references: [id],onDelete: Restrict)
+
+}
+
+model categories {
+
+  id Int @id @default(autoincrement())
+  title String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  prod_cat product_category[]
+
 }
