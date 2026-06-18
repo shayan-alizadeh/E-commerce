@@ -71,15 +71,15 @@ export class CategoryController {
     });
   }
 
-  @Delete('remove-only-category/:id')
-  async remove(@Param('id') id: string, @Res() res: Response) {
-    const result = await this.categoryService.removeOnlyCategory(+id);
-    return res.status(HttpStatus.OK).json({
-      success: true,
-      message: ` category ${id} Deleted `,
-      status: HttpStatus.OK,
-    });
-  }
+  // @Delete('remove-only-category/:id')
+  // async remove(@Param('id') id: string, @Res() res: Response) {
+  //   const result = await this.categoryService.removeOnlyCategory(+id);
+  //   return res.status(HttpStatus.OK).json({
+  //     success: true,
+  //     message: ` category ${id} Deleted `,
+  //     status: HttpStatus.OK,
+  //   });
+  // }
 
   @Delete('safe-remove/:id')
   async safeRemove(@Param('id') id: string, @Res() res: Response) {

@@ -57,16 +57,16 @@ export class CategoryService {
     }
   }
 
-  async removeOnlyCategory(id: number) {
-    return this.prisma.$transaction([
-      this.prisma.product_category.deleteMany({
-        where: { category_id: id },
-      }),
-      this.prisma.categories.delete({
-        where: { id },
-      }),
-    ]);
-  }
+  // async removeOnlyCategory(id: number) {
+  //   return this.prisma.$transaction([
+  //     this.prisma.product_category.deleteMany({
+  //       where: { category_id: id },
+  //     }),
+  //     this.prisma.categories.delete({
+  //       where: { id },
+  //     }),
+  //   ]);
+  // }
 
   async safeRemove(id: number) {
     const count = await this.prisma.product_category.count({
