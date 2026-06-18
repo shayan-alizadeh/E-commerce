@@ -6,8 +6,8 @@ import {
 import { CreateProductDto } from './dto/create-product.dto.js';
 import { UpdateProductDto } from './dto/update-product.dto.js';
 import { PrismaService } from 'src/prisma/prisma.service.js';
-import { BookmarkProductDto } from './dto/bookmark-product.dto';
-// import { BasketItemDto } from './dto/basket-item.dto';
+import { BookmarkProductDto } from './dto/bookmark-product.dto.js';
+import { BasketItemDto } from './dto/basket-item.dto.js';
 // import { RedisService } from 'src/redis/redis.service';
 
 @Injectable()
@@ -98,7 +98,7 @@ export class ProductService {
   }
 
   async remove(id: number) {
-    return this.prisma.products.delete({
+    return await this.prisma.products.delete({
       where: { id },
     });
   }
@@ -115,11 +115,11 @@ export class ProductService {
     });
 
     if (existBookmark) {
-      return this.prisma.bookmark_product.delete({
+      return await this.prisma.bookmark_product.delete({
         where: { id: existBookmark.id },
       });
     } else {
-      return this.prisma.bookmark_product.create({
+      return await this.prisma.bookmark_product.create({
         data: {
           user_id,
           product_id,
@@ -128,50 +128,28 @@ export class ProductService {
     }
   }
 
-  // async addToBasket(basketItemDto: BasketItemDto) {
-  //   const { userId, productId, quantity } = basketItemDto;
-  //   const user = await this.prisma.users.findFirst({ where: { id: userId } });
-  //   const product = await this.prisma.products.findFirst({
-  //     where: { id: productId },
-  //   });
+  async addToBasket(basketItemDto: BasketItemDto) {
+    const { user_id, product_id, quantity } = basketItemDto;
 
-  //   if (!user || !product)
-  //     throw new NotFoundException('کاربر یا محصول یافت نشد .');
+    return await this.prisma.basket_item.create({
+      data: {
+        user_id,
+        product_id,
+        quantity,
+      },
+    });
+  }
 
-  //   const item = await this.prisma.basket_item.findFirst({
-  //     where: {
-  //       user_id: user.id,
-  //       product_id: product.id,
-  //     },
-  //   });
-  //   if (item) {
-  //     throw new BadRequestException('Product already in basket');
-  //   } else {
-  //     return this.prisma.basket_item.create({
-  //       data: {
-  //         user_id: user.id,
-  //         product_id: product.id,
-  //         quantity,
-  //       },
-  //     });
-  //   }
-  // }
+  async removeFromBasket(basketItemDto: BasketItemDto) {
+    const { user_id, product_id } = basketItemDto;
 
-  // async removeFromBasket(basketItemDto: BasketItemDto) {
-  //   const { userId, productId } = basketItemDto;
-  //   const item = await this.prisma.basket_item.findFirst({
-  //     where: {
-  //       user_id: userId,
-  //       product_id: productId,
-  //     },
-  //   });
-  //   if (!item) {
-  //     throw new NotFoundException('سبد مورد نظر یافت نشد .');
-  //   }
-  //   return this.prisma.basket_item.delete({
-  //     where: {
-  //       id: item.id,
-  //     },
-  //   });
-  // }
+    return await this.prisma.basket_item.delete({
+      where: {
+        user_id_product_id: {
+          user_id,
+          product_id,
+        },
+      },
+    });
+  }
 }

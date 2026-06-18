@@ -12,8 +12,9 @@ import {
 import { ProductService } from './product.service.js';
 import { CreateProductDto } from './dto/create-product.dto.js';
 import { UpdateProductDto } from './dto/update-product.dto.js';
+import { BookmarkProductDto } from './dto/bookmark-product.dto.js';
 import type { Response } from 'express';
-// import { BookmarkProductDto } from './dto/bookmark-product.dto';
+
 // import { BasketItemDto } from './dto/basket-item.dto';
 // import { ApiBearerAuth } from '@nestjs/swagger';
 
@@ -82,20 +83,20 @@ export class ProductController {
       status: HttpStatus.OK,
     });
   }
-  // @Post('bookmark-product')
-  // async toggleBookmark(
-  //   @Body() bookmarkProductDto: BookmarkProductDto,
-  //   @Res() res: Response,
-  // ) {
-  //   const bookmark =
-  //     await this.productService.toggleBookmark(bookmarkProductDto);
-  //   return res.status(HttpStatus.OK).json({
-  //     success: true,
-  //     body: bookmark,
-  //     message: ` Bookmark Changed . `,
-  //     status: HttpStatus.OK,
-  //   });
-  // }
+  @Post('bookmark-product')
+  async toggleBookmark(
+    @Body() bookmarkProductDto: BookmarkProductDto,
+    @Res() res: Response,
+  ) {
+    const bookmark =
+      await this.productService.toggleBookmark(bookmarkProductDto);
+    return res.status(HttpStatus.OK).json({
+      success: true,
+      body: bookmark,
+      message: ` Bookmark Changed . `,
+      status: HttpStatus.OK,
+    });
+  }
   // @Post('add-basket')
   // async addToBasket(
   //   @Body() basketItemDtoDto: BasketItemDto,

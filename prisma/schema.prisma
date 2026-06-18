@@ -31,7 +31,7 @@ model users {
   comment comments[]
   // order orders[]
   book_prod bookmark_product[]
-  // bask_itm basket_item[]
+  bask_itm basket_item[]
   // user_roles user_role[]
   // user_permissions user_permission[]
 }
@@ -90,7 +90,7 @@ model products {
   comment comments[]
   prod_cat product_category[]
   book_prod bookmark_product[]
-  // bask_itm basket_item[]
+  bask_itm basket_item[]
   // item order_item[]
 
 }
@@ -122,4 +122,14 @@ model bookmark_product {
   @@unique([user_id,product_id])
   user users @relation(fields: [user_id],references: [id])
   product products @relation(fields: [product_id],references: [id])
+}
+
+model basket_item {
+  id Int @id @default(autoincrement())
+  user_id Int
+  product_id Int
+  quantity Int
+  @@unique([user_id,product_id])
+  user users  @relation(fields: [user_id],references: [id])
+  product products  @relation(fields: [product_id],references: [id])
 }
