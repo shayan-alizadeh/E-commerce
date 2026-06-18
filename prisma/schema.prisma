@@ -30,7 +30,7 @@ model users {
   ticket tickets[]
   comment comments[]
   // order orders[]
-  // book_prod bookmark_product[]
+  book_prod bookmark_product[]
   // bask_itm basket_item[]
   // user_roles user_role[]
   // user_permissions user_permission[]
@@ -89,7 +89,7 @@ model products {
   update_at DateTime @updatedAt
   comment comments[]
   prod_cat product_category[]
-  // book_prod bookmark_product[]
+  book_prod bookmark_product[]
   // bask_itm basket_item[]
   // item order_item[]
 
@@ -113,4 +113,13 @@ model categories {
   updated_at DateTime @updatedAt
   prod_cat product_category[]
 
+}
+
+model bookmark_product {
+  id Int @id @default(autoincrement())
+  user_id Int
+  product_id Int
+  @@unique([user_id,product_id])
+  user users @relation(fields: [user_id],references: [id])
+  product products @relation(fields: [product_id],references: [id])
 }
