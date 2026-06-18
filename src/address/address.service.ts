@@ -24,8 +24,8 @@ export class AddressService {
         if (error.code === 'P2025' || error.code === 'P2003') {
           throw new NotFoundException('User not found');
         }
-        throw error;
       }
+      throw error;
     }
   }
 

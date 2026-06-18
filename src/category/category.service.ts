@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+// ConflictException و ایمپورت Prisma حذف شدند چون دیگر نیازی به آن‌ها نیست
 import { CreateCategoryDto } from './dto/create-category.dto.js';
 import { PrismaService } from 'src/prisma/prisma.service.js';
 import { UpdateCategoryDto } from './dto/update-category.dto.js';
@@ -12,6 +13,7 @@ export class CategoryService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createCategoryDto: CreateCategoryDto) {
+    // خطای P2002 (تکراری بودن) توسط گلوبال فیلتر هندل می‌شود و 409 برمی‌گرداند
     return await this.prisma.categories.create({
       data: createCategoryDto,
     });
@@ -28,6 +30,7 @@ export class CategoryService {
       },
     });
   }
+
   async findOne(id: number) {
     const category = await this.prisma.categories.findUnique({
       where: { id },
@@ -39,47 +42,37 @@ export class CategoryService {
         },
       },
     });
-    if (category) {
-      return category;
-    } else {
-      throw new NotFoundException('Categor not Found .');
+
+    // اینجا چون findUnique به جای خطا دادن null برمی‌گرداند، این if باید بماند
+    if (!category) {
+      throw new NotFoundException('Category not found');
     }
+
+    return category;
   }
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    try {
-      return await this.prisma.categories.update({
-        where: { id },
-        data: updateCategoryDto,
-      });
-    } catch {
-      throw new NotFoundException('Address not found');
-    }
+    // خطاهای P2025 (پیدا نشدن) و P2002 توسط فیلتر به 404 و 409 تبدیل می‌شوند
+    return await this.prisma.categories.update({
+      where: { id },
+      data: updateCategoryDto,
+    });
   }
-
-  // async removeOnlyCategory(id: number) {
-  //   return this.prisma.$transaction([
-  //     this.prisma.product_category.deleteMany({
-  //       where: { category_id: id },
-  //     }),
-  //     this.prisma.categories.delete({
-  //       where: { id },
-  //     }),
-  //   ]);
-  // }
 
   async safeRemove(id: number) {
     const count = await this.prisma.product_category.count({
       where: { category_id: id },
     });
 
+    // این یک منطق بیزینسی و دستی است، بنابراین باید بماند
     if (count > 0) {
       throw new BadRequestException(
         'Cannot delete category with related products',
       );
     }
 
-    return this.prisma.categories.delete({
+    // خطای P2025 در صورت پیدا نشدن آیدی توسط فیلتر به 404 تبدیل می‌شود
+    return await this.prisma.categories.delete({
       where: { id },
     });
   }
