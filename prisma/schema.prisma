@@ -72,7 +72,7 @@ model comments {
   user_id Int
   product_id Int
   text String
-  score Int
+  score Int?
   created_at DateTime @default(now())
   user users @relation(fields: [user_id],references: [id])
   product products @relation(fields: [product_id],references: [id])

@@ -1,3 +1,4 @@
+//(برای ارور های دیتابیس)
 import {
   ExceptionFilter,
   Catch,
@@ -24,8 +25,10 @@ export class PrismaExceptionFilter implements ExceptionFilter {
     } else if (exception.code === 'P2025') {
       status = HttpStatus.NOT_FOUND;
       message = 'رکورد یافت نشد.';
+    } else if (exception.code === 'P2003') {
+      status = HttpStatus.BAD_REQUEST;
+      message = 'اطلاعات مرتبط (مثل آیدی کاربر یا محصول) در سیستم وجود ندارد.';
     }
-
     sendErrorResponse(response, request, status, message);
   }
 }

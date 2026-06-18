@@ -14,8 +14,8 @@ export class CreateTicketDto {
   description!: string;
 
   @IsNotEmpty({ message: 'id کاربر نمی تواند خالی باشد .' })
-  userId!: number;
+  user_id!: number;
 
   @IsOptional()
-  replyId?: number;
+  reply_id?: number;
 }

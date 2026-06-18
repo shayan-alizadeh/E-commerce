@@ -1,29 +1,61 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service.js';
 import { CreateCommentDto } from './dto/create-comment.dto.js';
 import { UpdateCommentDto } from './dto/update-comment.dto.js';
-import { PrismaService } from '../prisma/prisma.service.js';
 
 @Injectable()
 export class CommentService {
-  constructor(private readonly prisma:PrismaService){}
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(createCommentDto: CreateCommentDto) {
-    return 'This action adds a new comment';
+    return await this.prisma.comments.create({
+      data: createCommentDto,
+    });
+    
   }
 
   async findAll() {
-    return `This action returns all comment`;
+    return await this.prisma.comments.findMany({
+      include: {
+        product: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
   }
 
   async findOne(id: number) {
-    return `This action returns a #${id} comment`;
+    const comment = await this.prisma.comments.findUnique({
+      where: { id },
+      include: {
+        product: true,
+        user: {
+          select: { id: true },
+        },
+      },
+    });
+
+    if (!comment) {
+      throw new NotFoundException('کامنت مورد نظر یافت نشد.');
+    }
+
+    return comment;
   }
 
-  async update(id: number, updateCommentDto: UpdateCommentDto) {
-    return `This action updates a #${id} comment`;
+  async updateCommentScore(id: number, score: number) {
+    return await this.prisma.comments.update({
+      where: { id },
+      data: { score },
+    });
   }
 
   async remove(id: number) {
-    return `This action removes a #${id} comment`;
+    return await this.prisma.comments.delete({
+      where: { id },
+    });
   }
 }
