@@ -6,7 +6,7 @@ import {
 import { CreateProductDto } from './dto/create-product.dto.js';
 import { UpdateProductDto } from './dto/update-product.dto.js';
 import { PrismaService } from 'src/prisma/prisma.service.js';
-// import { BookmarkProductDto } from './dto/bookmark-product.dto';
+import { BookmarkProductDto } from './dto/bookmark-product.dto';
 // import { BasketItemDto } from './dto/basket-item.dto';
 // import { RedisService } from 'src/redis/redis.service';
 
@@ -103,33 +103,30 @@ export class ProductService {
     });
   }
 
-  // async toggleBookmark(bookmarkProductDto: BookmarkProductDto) {
-  //   const { userId, productId } = bookmarkProductDto;
+  async toggleBookmark(bookmarkProductDto: BookmarkProductDto) {
+    const { user_id, product_id } = bookmarkProductDto;
+    const existBookmark = await this.prisma.bookmark_product.findUnique({
+      where: {
+        user_id_product_id: {
+          user_id,
+          product_id,
+        },
+      },
+    });
 
-  //   const user = await this.prisma.users.findFirst({ where: { id: userId } });
-  //   const product = await this.prisma.products.findFirst({
-  //     where: { id: productId },
-  //   });
-
-  //   if (!user || !product)
-  //     throw new NotFoundException('کاربر یا محصول یافت نشد .');
-
-  //   const existBookmark = await this.prisma.bookmark_product.findFirst({
-  //     where: { user_id: user.id, product_id: product.id },
-  //   });
-  //   if (existBookmark) {
-  //     return this.prisma.bookmark_product.delete({
-  //       where: { id: existBookmark.id },
-  //     });
-  //   } else {
-  //     return this.prisma.bookmark_product.create({
-  //       data: {
-  //         user_id: userId,
-  //         product_id: productId,
-  //       },
-  //     });
-  //   }
-  // }
+    if (existBookmark) {
+      return this.prisma.bookmark_product.delete({
+        where: { id: existBookmark.id },
+      });
+    } else {
+      return this.prisma.bookmark_product.create({
+        data: {
+          user_id,
+          product_id,
+        },
+      });
+    }
+  }
 
   // async addToBasket(basketItemDto: BasketItemDto) {
   //   const { userId, productId, quantity } = basketItemDto;
