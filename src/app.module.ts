@@ -10,9 +10,21 @@ import { TicketModule } from './ticket/ticket.module.js';
 import { CommentModule } from './comment/comment.module.js';
 import { ProductModule } from './product/product.module.js';
 import { CategoryModule } from './category/category.module.js';
+import { OrderModule } from './order/order.module.js';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, UserModule, AuthModule, AddressModule, TicketModule, CommentModule, ProductModule, CategoryModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    PrismaModule,
+    UserModule,
+    AuthModule,
+    AddressModule,
+    TicketModule,
+    CommentModule,
+    ProductModule,
+    CategoryModule,
+    OrderModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
