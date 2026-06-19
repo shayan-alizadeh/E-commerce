@@ -29,7 +29,7 @@ model users {
   address addresses[]
   ticket tickets[]
   comment comments[]
-  // order orders[]
+  order orders[]
   book_prod bookmark_product[]
   bask_itm basket_item[]
   // user_roles user_role[]
@@ -49,7 +49,7 @@ model addresses {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   user users @relation(fields: [user_id] , references: [id])
-  // order orders[]
+  order orders[]
 
 }
 
@@ -68,6 +68,7 @@ model tickets {
 }
 
 model comments {
+
   id Int @id @default(autoincrement())
   user_id Int
   product_id Int
@@ -76,6 +77,7 @@ model comments {
   created_at DateTime @default(now())
   user users @relation(fields: [user_id],references: [id])
   product products @relation(fields: [product_id],references: [id])
+  
 }
 
 model products {
@@ -91,7 +93,7 @@ model products {
   prod_cat product_category[]
   book_prod bookmark_product[]
   bask_itm basket_item[]
-  // item order_item[]
+  item order_item[]
 
 }
 
@@ -153,4 +155,14 @@ model orders {
   user users  @relation(fields: [user_id],references: [id])
   adddress addresses @relation(fields: [address_id],references: [id])
   item order_item[]
+}
+
+model order_item {
+  id Int @id @default(autoincrement())
+  order_id Int
+  product_id Int
+  quantity   Int   @default(1) 
+  unit_price Int
+  order orders @relation(fields: [order_id],references: [id])
+  product products  @relation(fields: [product_id],references: [id])
 }
