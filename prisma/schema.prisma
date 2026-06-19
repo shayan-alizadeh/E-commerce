@@ -133,3 +133,24 @@ model basket_item {
   user users  @relation(fields: [user_id],references: [id])
   product products  @relation(fields: [product_id],references: [id])
 }
+
+enum orderStatus {
+  pending
+  completed
+  cancelled
+}
+model orders {
+  id Int @id @default(autoincrement())
+  user_id Int
+  address_id Int
+  status orderStatus @default(pending)
+  address String
+  totalPrice Int
+  discounte_code String? @db.VarChar(255)
+  payed_time DateTime?
+  created_at DateTime @default(now())
+  updated_at DateTime  @updatedAt
+  user users  @relation(fields: [user_id],references: [id])
+  adddress addresses @relation(fields: [address_id],references: [id])
+  item order_item[]
+}

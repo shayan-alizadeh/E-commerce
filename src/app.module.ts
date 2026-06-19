@@ -8,8 +8,8 @@ import { AuthModule } from './auth/auth.module.js';
 import { AddressModule } from './address/address.module.js';
 import { TicketModule } from './ticket/ticket.module.js';
 import { CommentModule } from './comment/comment.module.js';
-import { ProductModule } from './product/product.module';
-import { CategoryModule } from './category/category.module';
+import { ProductModule } from './product/product.module.js';
+import { CategoryModule } from './category/category.module.js';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, UserModule, AuthModule, AddressModule, TicketModule, CommentModule, ProductModule, CategoryModule],

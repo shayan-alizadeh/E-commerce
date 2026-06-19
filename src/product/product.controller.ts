@@ -13,9 +13,10 @@ import { ProductService } from './product.service.js';
 import { CreateProductDto } from './dto/create-product.dto.js';
 import { UpdateProductDto } from './dto/update-product.dto.js';
 import { BookmarkProductDto } from './dto/bookmark-product.dto.js';
+import { BasketItemDto } from './dto/basket-item.dto.js';
 import type { Response } from 'express';
 
-// import { BasketItemDto } from './dto/basket-item.dto';
+
 // import { ApiBearerAuth } from '@nestjs/swagger';
 
 // @ApiBearerAuth()
@@ -97,29 +98,29 @@ export class ProductController {
       status: HttpStatus.OK,
     });
   }
-  // @Post('add-basket')
-  // async addToBasket(
-  //   @Body() basketItemDtoDto: BasketItemDto,
-  //   @Res() res: Response,
-  // ) {
-  //   const bascket = await this.productService.addToBasket(basketItemDtoDto);
-  //   return res.status(HttpStatus.OK).json({
-  //     success: true,
-  //     body: bascket,
-  //     message: ` Basket Added . `,
-  //     status: HttpStatus.OK,
-  //   });
-  // }
-  // @Delete('remove-basket')
-  // async removeFromBasket(
-  //   @Body() basketItemDto: BasketItemDto,
-  //   @Res() res: Response,
-  // ) {
-  //   const product = await this.productService.removeFromBasket(basketItemDto);
-  //   return res.status(HttpStatus.OK).json({
-  //     success: true,
-  //     message: ` Product Deleted `,
-  //     status: HttpStatus.OK,
-  //   });
-  // }
+  @Post('add-basket')
+  async addToBasket(
+    @Body() basketItemDtoDto: BasketItemDto,
+    @Res() res: Response,
+  ) {
+    const bascket = await this.productService.addToBasket(basketItemDtoDto);
+    return res.status(HttpStatus.OK).json({
+      success: true,
+      body: bascket,
+      message: ` Basket Added . `,
+      status: HttpStatus.OK,
+    });
+  }
+  @Delete('remove-basket')
+  async removeFromBasket(
+    @Body() basketItemDto: BasketItemDto,
+    @Res() res: Response,
+  ) {
+    const product = await this.productService.removeFromBasket(basketItemDto);
+    return res.status(HttpStatus.OK).json({
+      success: true,
+      message: ` Product Deleted `,
+      status: HttpStatus.OK,
+    });
+  }
 }
