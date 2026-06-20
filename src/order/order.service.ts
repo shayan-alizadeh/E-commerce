@@ -35,7 +35,6 @@ export class OrderService {
     const { user_id, address_id } = createOrderDto;
 
     return this.prisma.$transaction(async (tx) => {
-      // ۱. بررسی آدرس (با یک ترفند بهینه‌تر: مستقیماً آدرسِ "همین کاربر" را می‌گیریم)
       const selectedAddress = await tx.addresses.findFirst({
         where: {
           id: address_id,
@@ -68,7 +67,6 @@ export class OrderService {
       const orderItemsData = basketItems.map((item) => {
         const currentProductPrice = Number(item.product.price);
 
-        // نکته امنیتی: همیشه قیمت‌ها را در بک‌اند محاسبه کنید (کاری که به درستی انجام دادید)
         calculatedTotalPrice += currentProductPrice * item.quantity;
 
         return {
