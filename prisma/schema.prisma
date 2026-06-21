@@ -150,6 +150,8 @@ model orders {
   totalPrice Int
   discounte_code String? @db.VarChar(255)
   payed_time DateTime?
+  track_id   String?   @unique 
+  ref_id     String?   @unique 
   created_at DateTime @default(now())
   updated_at DateTime  @updatedAt
   user users  @relation(fields: [user_id],references: [id])

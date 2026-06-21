@@ -9,12 +9,12 @@ import {
 import { CreateOrderDto } from './dto/create-order.dto.js';
 import { UpdateOrderDto } from './dto/update-order.dto.js';
 import { PrismaService } from 'src/prisma/prisma.service.js';
-// import { PaymentOrderDto } from './dto/payment-order.dto';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
 import { AxiosResponse } from 'axios';
 import { orderStatus } from '../../generated/prisma/enums.js';
-// import { VerifyPaymentDto } from './dto/verify-payment.dto';
+import { PaymentOrderDto } from './dto/payment-order.dto.js';
+import { VerifyPaymentDto } from './dto/verify-payment.dto.js';
 // import { EventEmitter2 } from '@nestjs/event-emitter';
 
 export interface ZibalResponseData {
@@ -138,7 +138,7 @@ export class OrderService {
     return order;
   }
 
-  async updateOrderStatus(orderId: number, updateOrderDto: UpdateOrderDto) {
+  async updateOrderStatus(order_id: number, updateOrderDto: UpdateOrderDto) {
     const order = await this.prisma.orders.findUnique({
       where: { id: orderId },
     });
@@ -163,9 +163,9 @@ export class OrderService {
   }
 
   async requestPayment(paymentOrderDto: PaymentOrderDto) {
-    const { orderId } = paymentOrderDto;
+    const { order_id } = paymentOrderDto;
     const order = await this.prisma.orders.findUnique({
-      where: { id: orderId },
+      where: { id: order_id },
     });
     if (!order) {
       throw new NotFoundException('سفارش یافت نشد .');
@@ -204,7 +204,7 @@ export class OrderService {
   }
 
   async verifyPayment(trackId: number, verifyPaymentDto: VerifyPaymentDto) {
-    const { orderId } = verifyPaymentDto;
+    const { order_id } = verifyPaymentDto;
     try {
       interface ZibalVerifyResponse {
         paidAt: string;
@@ -233,7 +233,7 @@ export class OrderService {
         // اگر پرداخت ناموفق بود، می‌توانید وضعیت سفارش را در دیتابیس CANCELLED کنید
 
         await this.prisma.orders.update({
-          where: { id: orderId },
+          where: { id: order_id },
           data: { status: orderStatus.cancelled },
         });
 
@@ -241,7 +241,7 @@ export class OrderService {
       }
 
       await this.prisma.orders.update({
-        where: { id: orderId },
+        where: { id: order_id },
         data: {
           status: orderStatus.completed,
         },
