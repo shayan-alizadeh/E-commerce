@@ -10,9 +10,9 @@ import { CreateOrderDto } from './dto/create-order.dto.js';
 import { UpdateOrderDto } from './dto/update-order.dto.js';
 import { PrismaService } from 'src/prisma/prisma.service.js';
 // import { PaymentOrderDto } from './dto/payment-order.dto';
-// import { HttpService } from '@nestjs/axios';
+import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-// import { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { orderStatus } from '../../generated/prisma/enums.js';
 // import { VerifyPaymentDto } from './dto/verify-payment.dto';
 // import { EventEmitter2 } from '@nestjs/event-emitter';
@@ -27,7 +27,7 @@ export interface ZibalResponseData {
 export class OrderService {
   constructor(
     private readonly prisma: PrismaService,
-    // private readonly httpService: HttpService,
+    private readonly httpService: HttpService,
     // private readonly eventEmitter: EventEmitter2,
   ) {}
 
@@ -138,7 +138,7 @@ export class OrderService {
     return order;
   }
 
-  async update(orderId: number, updateOrderDto: UpdateOrderDto) {
+  async updateOrderStatus(orderId: number, updateOrderDto: UpdateOrderDto) {
     const order = await this.prisma.orders.findUnique({
       where: { id: orderId },
     });
