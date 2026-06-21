@@ -9,13 +9,13 @@ import {
   Res,
   HttpStatus,
   Query,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { OrderService } from './order.service.js';
 import { CreateOrderDto } from './dto/create-order.dto.js';
 import { UpdateOrderDto } from './dto/update-order.dto.js';
 import type { Response } from 'express';
 import { PaymentOrderDto } from './dto/payment-order.dto.js';
-import { VerifyPaymentDto } from './dto/verify-payment.dto.js';
 // import { ApiBearerAuth } from '@nestjs/swagger';
 
 // @ApiBearerAuth()
@@ -77,34 +77,30 @@ export class OrderController {
     @Body() paymentOrderDto: PaymentOrderDto,
     @Res() res: Response,
   ) {
-    const paymentOrder =
-      await this.orderService.requestPayment(paymentOrderDto);
+    // دریافت اطلاعات تراکنش از سرویس
+    const paymentData = await this.orderService.requestPayment(paymentOrderDto);
+
     return res.status(HttpStatus.CREATED).json({
       success: true,
-      body: {
-        ...paymentOrder,
-        payment_url: `https://gateway.zibal.ir/start/${paymentOrder.trackId}`,
-      },
-      message: ` لینک پرداخت با موفقیت ساخته شد . `,
-      status: HttpStatus.CREATED,
+      body: paymentData,
+      message: 'لینک پرداخت با موفقیت ساخته شد.',
+      status: HttpStatus.CREATED, // کد 201
     });
   }
 
   @Post('/verify-payment')
   async verifyPayment(
-    @Body() verifyPaymentDto: VerifyPaymentDto,
-    @Query('trackId') trackId: number,
+    @Query('trackId', ParseIntPipe) trackId: number,
     @Res() res: Response,
   ) {
-    const verifypaymentOrder = await this.orderService.verifyPayment(
-      +trackId,
-      verifyPaymentDto,
-    );
-    return res.status(HttpStatus.CREATED).json({
+    // ارسال trackId به سرویس برای پیدا کردن سفارش و تایید پرداخت
+    const verifypaymentData = await this.orderService.verifyPayment(trackId);
+
+    return res.status(HttpStatus.OK).json({
       success: true,
-      body: verifypaymentOrder,
-      message: ` لینک پرداخت با موفقیت ساخته شد . `,
-      status: HttpStatus.CREATED,
+      body: verifypaymentData,
+      message: 'پرداخت با موفقیت تایید شد.',
+      status: HttpStatus.OK,
     });
   }
 }

@@ -329,8 +329,6 @@ export class OrderService {
     });
 
     return {
-      success: true,
-      message: 'پرداخت شما با موفقیت تایید و سفارش تکمیل شد.',
       refNumber: data.refNumber,
       cardNumber: data.cardNumber,
       paidAt: data.paidAt,
