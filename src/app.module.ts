@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { ConfigModule } from '@nestjs/config';
@@ -11,6 +11,8 @@ import { CommentModule } from './comment/comment.module.js';
 import { ProductModule } from './product/product.module.js';
 import { CategoryModule } from './category/category.module.js';
 import { OrderModule } from './order/order.module.js';
+import { IpTrackerModule } from './ip-tracker/ip-tracker.module.js';
+import { IpTrackerMiddleware } from './ip-tracker/ip-tracker.middleware.js';
 
 @Module({
   imports: [
@@ -24,8 +26,13 @@ import { OrderModule } from './order/order.module.js';
     ProductModule,
     CategoryModule,
     OrderModule,
+    IpTrackerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(IpTrackerMiddleware).forRoutes('*');
+  }
+}
