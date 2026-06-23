@@ -169,11 +169,3 @@ model order_item {
   product products  @relation(fields: [product_id],references: [id])
 }
 
-model ipRecord {
-  id Int @id @default(autoincrement())
-  ip String @unique
-  windowStart DateTime
-  requestCount Int
-  isBlocked Boolean @default(false)
-  blockUntil DateTime?
-}

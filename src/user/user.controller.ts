@@ -19,7 +19,7 @@ import { roleType } from '../../generated/prisma/enums.js';
 // import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 // import { Roles } from 'src/auth/Decorator/role.decorator';
 
-// import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 //@UseGuards(RoleGuard)
 // @ApiBearerAuth()

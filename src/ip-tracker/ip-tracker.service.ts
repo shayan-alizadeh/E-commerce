@@ -31,7 +31,7 @@ export class IpTrackerService {
     }
 
     // اگر سقف را رد کرد، او را بلاک می‌کنیم
-    if (currentCount > 5) {
+    if (currentCount > 10) {
       await this.redisService.set(blockKey, 'true', 'EX', 120); // بلاک برای 120 ثانیه
       throw new HttpException('بلاک شدید', HttpStatus.TOO_MANY_REQUESTS);
     }
