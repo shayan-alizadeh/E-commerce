@@ -15,7 +15,6 @@ import { firstValueFrom, catchError } from 'rxjs';
 import { AxiosResponse } from 'axios';
 import { orderStatus } from '../../generated/prisma/enums.js';
 import { PaymentOrderDto } from './dto/payment-order.dto.js';
-import { VerifyPaymentDto } from './dto/verify-payment.dto.js';
 import { ConfigService } from '@nestjs/config';
 // import { EventEmitter2 } from '@nestjs/event-emitter';
 
