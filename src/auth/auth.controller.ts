@@ -4,11 +4,12 @@ import { RegisterDto } from "./dto/register.dto.js";
 import { LoginDto } from "./dto/login.dto.js";
 import { AuthService } from "./auth.service.js";
 import type { Response } from "express";
+import { Public } from "./decorator/public.decorator.js";
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
-//   @Public()
+  @Public()
   @Post('register')
   async register(@Body() registerDto: RegisterDto, @Res() res: Response) {
     const register = await this.authService.register(
@@ -24,7 +25,7 @@ export class AuthController {
     });
   }
 
-//   @Public()
+  @Public()
   @Post('login')
   async login(@Body() loginDto: LoginDto, @Res() res: Response) {
     const login = await this.authService.login(
