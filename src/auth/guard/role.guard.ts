@@ -7,7 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { ROLES_KEY } from '../Decorator/role.decorator';
-import { roleType } from '@my-prisma/client';
+import { roleType } from '../../../generated/prisma/enums.js';
 
 @Injectable()
 export class RoleGuard implements CanActivate {
