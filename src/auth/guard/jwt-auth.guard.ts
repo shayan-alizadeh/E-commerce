@@ -9,7 +9,7 @@ import { IS_PUBLIC_KEY } from '../decorator/public.decorator.js';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  constructor(private reflector: Reflector) {
+  constructor(private reflector: Reflector) { //برای خواندن متادیتا از reflector استفاده میکنیم
     super();
   }
   canActivate(context: ExecutionContext) {
