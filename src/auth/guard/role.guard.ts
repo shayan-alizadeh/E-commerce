@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
-import { ROLES_KEY } from '../Decorator/role.decorator';
+import { ROLES_KEY } from '../decorator/role.decorator.js';
 import { roleType } from '../../../generated/prisma/enums.js';
 
 @Injectable()

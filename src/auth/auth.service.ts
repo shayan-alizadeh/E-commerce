@@ -54,5 +54,16 @@ export class AuthService {
       accessToken: token,
     };
   }
+
+  async getUserPermission(userId: number) {
+    const userPermission = await this.userService.findOne(userId);
+    if (!userPermission) {
+      throw new NotFoundException('کاربر مد نظر یافت نشد ');
+    }
+    const permissions = await this.userService.findUserPermission(userId);
+
+    // ۳. برگرداندن مستقیم نتیجه (دیگر نیازی به Set و map نیست)
+    return permissions;
+  }
 }
   

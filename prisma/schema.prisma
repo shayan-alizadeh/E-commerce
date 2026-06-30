@@ -32,8 +32,8 @@ model users {
   order orders[]
   book_prod bookmark_product[]
   bask_itm basket_item[]
-  // user_roles user_role[]
-  // user_permissions user_permission[]
+  user_roles user_role[]
+  user_permissions user_permission[]
 }
 
 model addresses {
@@ -169,3 +169,40 @@ model order_item {
   product products  @relation(fields: [product_id],references: [id])
 }
 
+model roles {
+  id Int @id @default(autoincrement())
+  name String @unique // admin , support , warehouse , accounting
+  role_permissions role_permission[]
+  user_roles user_role[]
+}
+
+model permissions {
+  id Int @id @default(autoincrement())
+  name String @unique // warehouse.create , warehouse.update
+  role_permissions role_permission[]
+  user_permissions user_permission[]
+}
+
+model role_permission {
+  role_id Int
+  permission_id Int
+  role roles @relation(fields: [role_id],references: [id])
+  permission permissions @relation(fields: [permission_id],references: [id])
+  @@id([role_id,permission_id])
+}
+
+model user_role {
+  user_id Int
+  role_id Int
+  user users @relation(fields: [user_id],references: [id])
+  role roles @relation(fields: [role_id],references: [id])
+  @@id([user_id,role_id])
+}
+
+model user_permission {
+  user_id Int
+  permission_id Int
+  user users @relation(fields: [user_id],references: [id])
+  permission permissions @relation(fields: [permission_id],references: [id])
+  @@id([user_id,permission_id])
+}
