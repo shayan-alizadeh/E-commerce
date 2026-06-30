@@ -1,10 +1,10 @@
-import { Body, Controller,Post,Res,HttpStatus } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import { RegisterDto } from "./dto/register.dto.js";
-import { LoginDto } from "./dto/login.dto.js";
-import { AuthService } from "./auth.service.js";
-import type { Response } from "express";
-import { Public } from "./decorator/public.decorator.js";
+import { Body, Controller, Get, Post, Res, HttpStatus,Param } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { RegisterDto } from './dto/register.dto.js';
+import { LoginDto } from './dto/login.dto.js';
+import { AuthService } from './auth.service.js';
+import type { Response } from 'express';
+import { Public } from './decorator/public.decorator.js';
 
 @Controller('auth')
 export class AuthController {
@@ -38,5 +38,14 @@ export class AuthController {
       message: ' Login is done . ',
       status: HttpStatus.OK,
     });
+  }
+
+  // @ApiBearerAuth()
+  @Get('getUserPermission/:userId')
+  async getUserPermission(
+    @Param('userId') userId: number,
+    @Res() res: Response,
+  ) {
+    const permission = await this.authService.getUserPermission(userId);
   }
 }
