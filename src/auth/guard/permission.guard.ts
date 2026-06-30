@@ -5,10 +5,10 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { AuthService } from '../auth.service';
-import { PERMISSION_KEY } from '../Decorator/permission.decorator';
-import { IS_PUBLIC_KEY } from '../Decorator/public.decorator';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { AuthService } from '../auth.service.js';
+import { PERMISSION_KEY } from '../decorator/permission.decorator.js';
+import { IS_PUBLIC_KEY } from '../decorator/public.decorator.js';
+import { PrismaService } from '../../prisma/prisma.service.js';
 
 @Injectable()
 export class PermissionGuard implements CanActivate {
