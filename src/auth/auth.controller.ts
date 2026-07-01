@@ -111,4 +111,97 @@ export class AuthController {
       status: HttpStatus.CREATED,
     });
   }
+
+  // @ApiBearerAuth()
+  @Post('role/remove-from-user')
+  async removeRoleFromUser(
+    @Body() roleToUser: RoleToUserDto,
+    @Res() res: Response,
+  ) {
+    const result = await this.authService.removeRoleFromUser(
+      roleToUser.userId,
+      roleToUser.roleId,
+    );
+    return res.status(HttpStatus.OK).json({
+      success: true,
+      message: ' Role is Deleted . ',
+      status: HttpStatus.OK,
+    });
+  }
+
+  // @ApiBearerAuth()
+  @Get('role/get-user-roles/:userId')
+  async getUserRoles(@Param('userId') userId: number, @Res() res: Response) {
+    const result = await this.authService.getUserRoles(userId);
+    return res.status(HttpStatus.OK).json({
+      success: true,
+      body: result,
+      message: ' Role is Deleted . ',
+      status: HttpStatus.OK,
+    });
+  }
+
+  // @ApiBearerAuth()
+  @Post('permission/append-to-role')
+  async addPermissionToRole(
+    @Body() permissionToRole: PermissionToRoleDto,
+    @Res() res: Response,
+  ) {
+    const result = await this.authService.addPermissionToRole(
+      permissionToRole.roleId,
+      permissionToRole.permissionId,
+    );
+    return res.status(HttpStatus.CREATED).json({
+      success: true,
+      message: ' Role is added . ',
+      status: HttpStatus.CREATED,
+    });
+  }
+
+  // @ApiBearerAuth()
+  @Get('permission/get-role-pesrmissions/:roleId')
+  async getRolePermissions(
+    @Param('roleId') roleId: number,
+    @Res() res: Response,
+  ) {
+    const result = await this.authService.getRolePermissions(roleId);
+    return res.status(HttpStatus.OK).json({
+      success: true,
+      body: result,
+      message: ' Role is Deleted . ',
+      status: HttpStatus.OK,
+    });
+  }
+
+  // @ApiBearerAuth()
+  @Post('permission/append-to-user')
+  async addPermissionToUser(
+    @Body() permissionToUser: PermissionToUserDto,
+    @Res() res: Response,
+  ) {
+    const result = await this.authService.addPermissionToRole(
+      permissionToUser.userId,
+      permissionToUser.permissionId,
+    );
+    return res.status(HttpStatus.CREATED).json({
+      success: true,
+      message: ' Permission is added . ',
+      status: HttpStatus.CREATED,
+    });
+  }
+
+  // @ApiBearerAuth()
+  @Get('permission/get-user-pesrmissions/:userId')
+  async getUserPermissions(
+    @Param('userId') userId: number,
+    @Res() res: Response,
+  ) {
+    const result = await this.authService.getUserPermission(userId);
+    return res.status(HttpStatus.OK).json({
+      success: true,
+      body: result,
+      message: ' Permissions returned . ',
+      status: HttpStatus.OK,
+    });
+  }
 }

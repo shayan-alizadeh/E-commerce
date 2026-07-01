@@ -106,5 +106,67 @@ export class AuthService {
       },
     });
   }
+
+  async addPermissionToRole(permissionId: number, roleId: number) {
+    const foundPermission = await this.prisma.permissions.findUnique({
+      where: { id: permissionId },
+    });
+    if (!foundPermission)
+      throw new NotFoundException('سطح دسترسی مورد نظر یافت نشد .');
+
+    const role = await this.prisma.roles.findUnique({
+      where: { id: roleId },
+    });
+    if (!role) throw new NotFoundException('نقش مورد نظر یافت نشد .');
+
+    const permissionRole = await this.prisma.role_permission.findUnique({
+      where: {
+        role_id_permission_id: { role_id: roleId, permission_id: permissionId },
+      },
+    });
+
+    if (permissionRole)
+      throw new ConflictException(
+        'این سطح دسترسی از قبل برای این نقش ثبت شده است.',
+      );
+
+    return this.prisma.role_permission.create({
+      data: {
+        role_id: roleId,
+        permission_id: permissionId,
+      },
+    });
+  }
+
+  async addPermissionToUser(permissionId: number, userId: number) {
+    const foundPermission = await this.prisma.permissions.findUnique({
+      where: { id: permissionId },
+    });
+    if (!foundPermission)
+      throw new NotFoundException('سطح دسترسی مورد نظر یافت نشد .');
+
+    const foundUser = await this.prisma.users.findUnique({
+      where: { id: userId },
+    });
+    if (!foundUser) throw new NotFoundException('کاربر مورد نظر یافت نشد .');
+
+    const permissionUser = await this.prisma.user_permission.findUnique({
+      where: {
+        user_id_permission_id: { user_id: userId, permission_id: permissionId },
+      },
+    });
+
+    if (permissionUser)
+      throw new ConflictException(
+        'این سطح دسترسی از قبل برای این کاربر ثبت شده است.',
+      );
+
+    return this.prisma.user_permission.create({
+      data: {
+        user_id: userId,
+        permission_id: permissionId,
+      },
+    });
+  }
 }
   
