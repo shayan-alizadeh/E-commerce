@@ -65,5 +65,12 @@ export class AuthService {
     // ۳. برگرداندن مستقیم نتیجه (دیگر نیازی به Set و map نیست)
     return permissions;
   }
+
+  async createRole(name: string) {
+    const role = await this.prisma.roles.create({
+      data: { name: name },
+    });
+    return role;
+  }
 }
   
