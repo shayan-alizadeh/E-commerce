@@ -72,5 +72,39 @@ export class AuthService {
     });
     return role;
   }
+
+  async createPermission(name: string): Promise<{ name: string }> {
+    const role = await this.prisma.permissions.create({
+      data: { name: name },
+      select: { name: true },
+    });
+    return role;
+  }
+
+  async addRoleToUser(userId: number, roleId: number) {
+    const role = await this.prisma.roles.findUnique({
+      where: { id: roleId },
+    });
+    if (!role) throw new NotFoundException('نقش وارد شده وجود ندارد .');
+
+    const user = await this.prisma.users.findUnique({
+      where: { id: userId },
+    });
+    if (!user) throw new NotFoundException('کاربر مورد نظر یافت نشد .');
+
+    const userRole = await this.prisma.user_role.findUnique({
+      where: { user_id_role_id: { user_id: userId, role_id: roleId } },
+    });
+
+    if (userRole)
+      throw new ConflictException('این نقش از قبل برای این کاربر ثبت شده است.');
+
+    return this.prisma.user_role.create({
+      data: {
+        user_id: userId,
+        role_id: roleId,
+      },
+    });
+  }
 }
   
