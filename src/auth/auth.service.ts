@@ -168,5 +168,47 @@ export class AuthService {
       },
     });
   }
+  async removeRoleFromUser(userId: number, roleId: number) {
+    const role = await this.prisma.user_role.findFirst({
+      where: {
+        user_id: userId,
+        role_id: roleId,
+      },
+    });
+    if (!role) throw new ConflictException('نقش مورد نظر یافت نشد .');
+
+    return this.prisma.user_role.delete({
+      where: {
+        user_id_role_id: {
+          user_id: userId,
+          role_id: roleId,
+        },
+      },
+    });
+  }
+
+  async getUserRoles(userId: number) {
+    const userRoles = await this.prisma.user_role.findMany({
+      where: { user_id: userId },
+      select: {
+        role: {
+          select: { name: true },
+        },
+      },
+    });
+    return userRoles.map((r) => r.role.name);
+  }
+
+  async getRolePermissions(roleId: number) {
+    const rolePermissions = await this.prisma.role_permission.findMany({
+      where: { role_id: roleId },
+      select: {
+        permission: {
+          select: { name: true },
+        },
+      },
+    });
+    return rolePermissions.map((p) => p.permission.name);
+  }
 }
   
