@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Res, HttpStatus,Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Res,
+  HttpStatus,
+  Param,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterDto } from './dto/register.dto.js';
 import { LoginDto } from './dto/login.dto.js';
@@ -6,6 +14,10 @@ import { AuthService } from './auth.service.js';
 import type { Response } from 'express';
 import { Public } from './decorator/public.decorator.js';
 import { RoleDto } from './dto/role.dto.js';
+import { RoleToUserDto } from './dto/add-role-to-user.dto.js';
+import { createPermissionDto } from './dto/permission.dto.js';
+import { PermissionToRoleDto } from './dto/add-permission-to-role.dto.js';
+import { PermissionToUserDto } from './dto/add-permission-to-user.dto.js';
 
 @Controller('auth')
 export class AuthController {
