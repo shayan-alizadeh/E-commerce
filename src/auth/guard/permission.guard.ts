@@ -60,32 +60,32 @@ export class PermissionGuard implements CanActivate {
 
     return true;
   }
-  // این کد طبق بخش بعدا اضافه شد ownership Guard
-  private cleanOwn(str: string) {
-    if (str.endsWith(':own')) {
-      return str.slice(0, -4);
-    }
-    return str;
-  }
-  // این کد طبق بخش بعدا اضافه شد ownership Guard
-  private async checkOwnership(
-    resource: string,
-    resourceId: number,
-    userId: number,
-  ) {
-    //در اینجا ریسورس آدرس در نظر گرفته شده که می توان ریسورس های دیگه ایی که مورد نیاز
-    //هست هم اضافه شود
-    if (resource === 'address') {
-      const address = await this.prisma.addresses.findUnique({
-        where: { id: resourceId },
-        include: {
-          user: true,
-        },
-      });
-      if (!address) return false;
-      return address.user.id === userId;
-    } else {
-      return false;
-    }
-  }
+  // // این کد طبق بخش بعدا اضافه شد ownership Guard
+  // private cleanOwn(str: string) {
+  //   if (str.endsWith(':own')) {
+  //     return str.slice(0, -4);
+  //   }
+  //   return str;
+  // }
+  // // این کد طبق بخش بعدا اضافه شد ownership Guard
+  // private async checkOwnership(
+  //   resource: string,
+  //   resourceId: number,
+  //   userId: number,
+  // ) {
+  //   //در اینجا ریسورس آدرس در نظر گرفته شده که می توان ریسورس های دیگه ایی که مورد نیاز
+  //   //هست هم اضافه شود
+  //   if (resource === 'address') {
+  //     const address = await this.prisma.addresses.findUnique({
+  //       where: { id: resourceId },
+  //       include: {
+  //         user: true,
+  //       },
+  //     });
+  //     if (!address) return false;
+  //     return address.user.id === userId;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 }
