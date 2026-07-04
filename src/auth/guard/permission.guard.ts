@@ -33,6 +33,7 @@ export class PermissionGuard implements CanActivate {
       userPermission.includes(permission),
     );
     if (!hasPermission) throw new ForbiddenException('شما اجازه ورود ندارید .');
+
     return true;
     // این کد طبق بخش بعدا اضافه شد ownership Guard
     //   for (const permission of requiredPermission) {
@@ -73,7 +74,7 @@ export class PermissionGuard implements CanActivate {
     //       },
     //     });
     //     if (!address) return false;
-    //     return address.user.id === userId;
+    //     if (address.user.id === userId) return true;
     //   } else {
     //     return false;
     //   }
