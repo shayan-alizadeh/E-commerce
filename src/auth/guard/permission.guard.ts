@@ -74,7 +74,7 @@ export class PermissionGuard implements CanActivate {
     //       },
     //     });
     //     if (!address) return false;
-    //     if (address.user.id === userId) return true;
+    //     return address.user.id === userId;
     //   } else {
     //     return false;
     //   }

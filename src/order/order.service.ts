@@ -156,14 +156,14 @@ export class OrderService {
 
   async updateOrderStatus(order_id: number, updateOrderDto: UpdateOrderDto) {
     const order = await this.prisma.orders.findUnique({
-      where: { id: orderId },
+      where: { id: order_id },
     });
 
     if (!order) {
       throw new NotFoundException('سفارشی با این شناسه یافت نشد');
     }
     const orderUpdate = await this.prisma.orders.update({
-      where: { id: orderId },
+      where: { id: order_id },
       data: {
         status: updateOrderDto.status,
       },
