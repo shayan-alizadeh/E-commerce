@@ -15,11 +15,13 @@ import { IpTrackerModule } from './ip-tracker/ip-tracker.module.js';
 import { IpTrackerMiddleware } from './ip-tracker/ip-tracker.middleware.js';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard.js';
-import { TaskModule } from './task/task.module';
+import { TaskModule } from './task/task.module.js';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    ScheduleModule.forRoot(),
     PrismaModule,
     UserModule,
     AuthModule,

@@ -6,6 +6,7 @@ export class TaskService {
   constructor(private cleanUp: CleanUpJob) {}
 
   // @Cron("* * * * *")
+  // @Cron(CronExpression.EVERY_11_HOURS)
   cleanOtpData() {
     this.cleanUp.cleanOtp();
   }
