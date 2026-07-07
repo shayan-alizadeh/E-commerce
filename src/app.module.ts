@@ -15,6 +15,7 @@ import { IpTrackerModule } from './ip-tracker/ip-tracker.module.js';
 import { IpTrackerMiddleware } from './ip-tracker/ip-tracker.middleware.js';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard.js';
+import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { JwtAuthGuard } from './auth/guard/jwt-auth.guard.js';
     CategoryModule,
     OrderModule,
     IpTrackerModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [
