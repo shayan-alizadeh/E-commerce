@@ -8,23 +8,22 @@ import type { Queue } from 'bull';
 export class SmsService {
   constructor(@InjectQueue('sms-queue') private smsQueue: Queue) {}
 
-  create(createSmDto: CreateSmDto) {
-    return 'This action adds a new sm';
-  }
-
-  findAll() {
-    return `This action returns all sms`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} sm`;
-  }
-
-  update(id: number, updateSmDto: UpdateSmDto) {
-    return `This action updates a #${id} sm`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} sm`;
+  sendMultiSms(mobiles: string[], message: string) {
+    mobiles.forEach((mobile, index) => {
+      this.smsQueue.add(
+        //processor name
+        'send-sms',
+        //data
+        { mobile, message },
+        //options
+        {
+          // attempts: 3,
+          // backoff: 5000,
+          delay: (index + 1) * 10000,
+          removeOnComplete: true,
+          removeOnFail: false,
+        },
+      );
+    });
   }
 }

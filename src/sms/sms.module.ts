@@ -4,9 +4,11 @@ import { SmsController } from './sms.controller.js';
 import { BullModule } from '@nestjs/bull';
 
 @Module({
-  imports: [BullModule.registerQueue({
-    name : 'sms-queue'
-  })],
+  imports: [
+    BullModule.registerQueue({
+      name: 'sms-queue',
+    }),
+  ],
   controllers: [SmsController],
   providers: [SmsService],
 })
