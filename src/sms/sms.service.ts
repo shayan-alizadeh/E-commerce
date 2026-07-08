@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSmDto } from './dto/create-sm.dto';
 import { UpdateSmDto } from './dto/update-sm.dto';
+import { InjectQueue } from '@nestjs/bull';
+import type { Queue } from 'bull';
 
 @Injectable()
 export class SmsService {
+  constructor(@InjectQueue('sms-queue') private smsQueue: Queue) {}
+
   create(createSmDto: CreateSmDto) {
     return 'This action adds a new sm';
   }

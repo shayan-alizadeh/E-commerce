@@ -17,12 +17,19 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard.js';
 import { TaskModule } from './task/task.module.js';
 import { ScheduleModule } from '@nestjs/schedule';
-import { SmsModule } from './sms/sms.module';
+import { SmsModule } from './sms/sms.module.js';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     ScheduleModule.forRoot(),
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
     PrismaModule,
     UserModule,
     AuthModule,
