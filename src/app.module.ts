@@ -17,6 +17,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard.js';
 import { TaskModule } from './task/task.module.js';
 import { ScheduleModule } from '@nestjs/schedule';
+import { SmsModule } from './sms/sms.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     OrderModule,
     IpTrackerModule,
     TaskModule,
+    SmsModule,
   ],
   controllers: [AppController],
   providers: [
