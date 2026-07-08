@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsArray, IsNotEmpty, IsString, Matches } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 import { roleType } from '@my-prisma/client';
 
 export class SmsDto {
