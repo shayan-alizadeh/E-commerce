@@ -59,7 +59,7 @@ Ensure you have the following installed on your local machine:
 
 - [Node.js](https://nodejs.org/en/) v16 or higher
 - [Redis Server](https://redis.io/) running on `localhost:6379`
-- MariaDB or PostgreSQL Server
+- MySQL or PostgreSQL Server
 
 ---
 
