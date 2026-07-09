@@ -81,7 +81,7 @@ Ensure you have the following installed on your local machine:
 3. **Configure Environment Variables:Create a .env file in the root directory and add your database credentials:**
 
 ```bash
-DATABASE_URL="mysql://root:password@localhost:3306/database_name"
+DATABASE_URL=mysql://root:password@localhost:3306/database_name
 
 DATABASE_HOST=localhost
 DATABASE_USER=root
