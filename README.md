@@ -68,7 +68,7 @@ Ensure you have the following installed on your local machine:
 1. **Clone the repository:**
 
 ```bash
-   git clone https://github.com/YourUsername/warehouse-management-api.git
+   git clone https://github.com/shayan-alizadeh/E-commerce.git
    cd warehouse-management-api
 ```
 
