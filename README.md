@@ -69,7 +69,7 @@ Ensure you have the following installed on your local machine:
 
 ```bash
    git clone https://github.com/shayan-alizadeh/E-commerce.git
-   cd warehouse-management-api
+   cd e-commerce-api
 ```
 
 2. **Install dependencies:**
@@ -84,7 +84,7 @@ Ensure you have the following installed on your local machine:
    DB_HOST=localhost
    DB_USER=root
    DB_PASS=yourpassword
-   DB_NAME=warehouse_db
+   DB_NAME=e_commerce
 ```
 
 4. **Run the Application:**
