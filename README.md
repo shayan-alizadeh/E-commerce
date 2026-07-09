@@ -62,7 +62,3 @@ Ensure you have the following installed on your local machine:
 - MySQL or PostgreSQL Server
 
 ---
-
-## ⚙️ Installation
-
-### 1. Clone the Repository
