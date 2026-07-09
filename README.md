@@ -43,10 +43,10 @@
 
 ## 🛠 Tech Stack
 
-- **Framework**: [NestJS](https://nestjs.com/)
-- **Database ORM**: [Prisma](https://www.prisma.io/)
+- **Framework**: [NestJS]
+- **Database ORM**: [Prisma]
 - **Database Engine**: MySQL
-- **Caching & Queues**: [Redis](https://redis.io/) & [Bull](https://docs.nestjs.com/techniques/queues)
+- **Caching & Queues**: [Redis] & [Bull]
 - **HTTP Client**: Axios (`@nestjs/axios`) for payment gateway requests
 - **Task Scheduling**: `@nestjs/schedule`
 - **Events**: `@nestjs/event-emitter`
