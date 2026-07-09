@@ -81,10 +81,19 @@ Ensure you have the following installed on your local machine:
 3. **Configure Environment Variables:Create a .env file in the root directory and add your database credentials:**
 
 ```bash
-   DB_HOST=localhost
-   DB_USER=root
-   DB_PASS=yourpassword
-   DB_NAME=e_commerce
+DATABASE_URL="mysql://root:password@localhost:3306/database_name"
+
+DATABASE_HOST=localhost
+DATABASE_USER=root
+DATABASE_PASSWORD=password
+DATABASE_NAME=e_commerce
+
+JWT_SECRET_KEY=your_jwt_secret_key
+JWT_EXPIRATION=1h
+IS_PUBLIC_KEY=your_public_key
+
+ZIBAL_MERCHANT=your_zibal_merchant
+PAYMENT_CALLBACK_URL=http://localhost:3000/payment/verify
 ```
 
 4. **Run the Application:**
