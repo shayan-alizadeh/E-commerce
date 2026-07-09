@@ -45,7 +45,7 @@
 
 - **Framework**: [NestJS](https://nestjs.com/)
 - **Database ORM**: [Prisma](https://www.prisma.io/)
-- **Database Engine**: MariaDB / PostgreSQL
+- **Database Engine**: MySQL
 - **Caching & Queues**: [Redis](https://redis.io/) & [Bull](https://docs.nestjs.com/techniques/queues)
 - **HTTP Client**: Axios (`@nestjs/axios`) for payment gateway requests
 - **Task Scheduling**: `@nestjs/schedule`
