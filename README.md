@@ -62,3 +62,35 @@ Ensure you have the following installed on your local machine:
 - MySQL or PostgreSQL Server
 
 ---
+
+## ⚙️ Installation & Setup
+
+1. **Clone the repository:**
+
+```bash
+   git clone https://github.com/YourUsername/warehouse-management-api.git
+   cd warehouse-management-api
+```
+
+2. **Install dependencies:**
+
+```bash
+   npm install
+```
+
+3. **Configure Environment Variables:Create a .env file in the root directory and add your database credentials:**
+
+```bash
+   DB_HOST=localhost
+   DB_USER=root
+   DB_PASS=yourpassword
+   DB_NAME=warehouse_db
+```
+
+4. **Run the Application:**
+
+```bash
+   npm start
+   # or using nodemon for development
+   npm run dev
+```
