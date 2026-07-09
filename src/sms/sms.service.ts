@@ -9,7 +9,7 @@ export class SmsService {
   sendMultiSms(mobiles: string[], message: string) {
     mobiles.forEach((mobile, index) => {
       this.smsQueue.add(
-        //processor name
+        //process name
         'send-sms',
         //data
         { mobile, message },
@@ -17,7 +17,7 @@ export class SmsService {
         {
           // attempts: 3,
           // backoff: 5000,
-          delay: (index + 1) * 10000,
+          delay: (index + 1) * 5000,
           removeOnComplete: true,
           removeOnFail: false,
         },
