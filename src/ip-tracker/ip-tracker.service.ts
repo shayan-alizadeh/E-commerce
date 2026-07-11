@@ -1,6 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service.js';
-// import { RedisService } from 'src/redis/redis.service';
+import { RedisService } from 'src/redis/redis.service.js';
 @Injectable()
 export class IpTrackerService {
   private readonly MAX_REQUEST = 5;
