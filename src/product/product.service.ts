@@ -8,7 +8,7 @@ import { UpdateProductDto } from './dto/update-product.dto.js';
 import { PrismaService } from 'src/prisma/prisma.service.js';
 import { BookmarkProductDto } from './dto/bookmark-product.dto.js';
 import { BasketItemDto } from './dto/basket-item.dto.js';
-// import { RedisService } from 'src/redis/redis.service';
+import { RedisService } from 'src/redis/redis.service';
 
 @Injectable()
 export class ProductService {
