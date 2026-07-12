@@ -1,6 +1,7 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module.js';
+import {RedisModule} from './redis/redis.module.js'
 import { UserModule } from './user/user.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { AddressModule } from './address/address.module.js';
@@ -29,6 +30,7 @@ import { BullModule } from '@nestjs/bull';
       },
     }),
     PrismaModule,
+    RedisModule,
     UserModule,
     AuthModule,
     AddressModule,

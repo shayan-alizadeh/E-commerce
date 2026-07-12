@@ -1,5 +1,5 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { RedisService } from 'src/redis/redis.service.js';
+import { RedisService } from '../redis/redis.service.js';
 
 @Injectable()
 export class IpTrackerService {

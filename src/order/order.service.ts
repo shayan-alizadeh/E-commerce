@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto.js';
 import { UpdateOrderDto } from './dto/update-order.dto.js';
-import { PrismaService } from 'src/prisma/prisma.service.js';
+import { PrismaService } from '../prisma/prisma.service.js';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, catchError } from 'rxjs';
 import { AxiosResponse } from 'axios';
@@ -169,11 +169,11 @@ export class OrderService {
       },
     });
 
-    this.eventEmitter.emit('factor-create', orderUpdate);
-    this.eventEmitter.emit('sms-send', {
-      mobile: '09305806033',
-      message: `سفارش شماره ${orderUpdate.id} با موفقیت انجام شد .`,
-    });
+    // this.eventEmitter.emit('factor-create', orderUpdate);
+    // this.eventEmitter.emit('sms-send', {
+    //   mobile: '09305806033',
+    //   message: `سفارش شماره ${orderUpdate.id} با موفقیت انجام شد .`,
+    // });
 
     return orderUpdate;
   }

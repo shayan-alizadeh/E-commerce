@@ -5,10 +5,10 @@ import {
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto.js';
 import { UpdateProductDto } from './dto/update-product.dto.js';
-import { PrismaService } from 'src/prisma/prisma.service.js';
+import { PrismaService } from '../prisma/prisma.service.js';
 import { BookmarkProductDto } from './dto/bookmark-product.dto.js';
 import { BasketItemDto } from './dto/basket-item.dto.js';
-import { RedisService } from 'src/redis/redis.service';
+import { RedisService } from '../redis/redis.service.js';
 
 @Injectable()
 export class ProductService {

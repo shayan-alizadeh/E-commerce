@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { SmsService } from './sms.service.js';
 import { SmsDto } from './dto/send-sms.dto.js';
-import { Public } from 'src/auth/decorator/public.decorator.js';
+import { Public } from '../auth/decorator/public.decorator.js';
 
 @Public()
 @Controller('sms')

@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 // ConflictException و ایمپورت Prisma حذف شدند چون دیگر نیازی به آن‌ها نیست
 import { CreateCategoryDto } from './dto/create-category.dto.js';
-import { PrismaService } from 'src/prisma/prisma.service.js';
+import { PrismaService } from '../prisma/prisma.service.js';
 import { UpdateCategoryDto } from './dto/update-category.dto.js';
 
 @Injectable()
